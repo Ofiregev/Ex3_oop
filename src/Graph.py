@@ -4,9 +4,8 @@ import string
 
 class Digraph():
     def __init__(self):
-        self.Nodes = []
-        self.Edges = []
-        self.graphDict = {}
+        self.graphDict = {} #{key :node_id, value: node_data}
+        self.mc = 0
 
 def load_from_json(self, Filename:string):
     with open(Filename, 'r') as w:
@@ -21,16 +20,11 @@ def load_from_json(self, Filename:string):
         self.graphDict[i.id] = i
     print(dict(self.graphDict))
 
-def v_size(self) -> int:
-    return self.Nodes.length
+    def v_size(self) -> int:
+        return self.Nodes.__len__()
 
-
-def e_size(self) -> int:
-        """
-        Returns the number of edges in this graph
-        @return: The number of edges in this graph
-        """
-        raise NotImplementedError
+    def e_size(self) -> int:
+        return self.Edges.__len__()
 
     def get_all_v(self) -> dict:
         """return a dictionary of all the nodes in the Graph, each node is represented using a pair
@@ -56,6 +50,7 @@ def e_size(self) -> int:
         raise NotImplementedError
 
     def add_edge(self, id1: int, id2: int, weight: float) -> bool:
+
         """
         Adds an edge to the graph.
         @param id1: The start node of the edge
@@ -99,6 +94,8 @@ class Node:
     def __init__(self,list):
         self.id = list["id"]
         self.pos = list["pos"]
+        self.inEdge ={}  #this is dic of edge into our node <"other nide.id",w>
+        self.outEdge ={} #this is dic of edge from our node <"other nide.id",w>
 
     def __repr__(self):
         return f"(node id: {self.id} node pos: {self.pos})"
@@ -122,8 +119,13 @@ class Edge:
 
 def main():
     g = Digraph()
-    file ='../data/A5.json'
-    load_from_json(g,file)
+    # file ='../data/A5.json'
+    # g.load_from_json(file)
+    print(g.add_node(2, ("3","3","0")))
+    print(g.add_node(1, ("3","3","0")))
+    print(g.remove_node(1))
+    print(g.remove_node(1))
+
 
 
 if __name__ == '__main__':
