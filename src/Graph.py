@@ -46,9 +46,9 @@ class Digraph():
         return self.mc
 
     def add_edge(self, id1: int, id2: int, weight: float) -> bool:
-        if self.graphDict.get(id1) == None or self.graphDict.get(id2) == None:
+        if self.graphDict.get(id1) is None or self.graphDict.get(id2) is None:
             return False
-        if self.graphDict.get(id1).inEdge.get(id2) == None or self.graphDict.get(id2).outEdge[id1] == None:
+        if self.graphDict.get(id1).outEdge.get(id2) is None and self.graphDict.get(id2).inEdge.get(id1) is None:
             self.graphDict.get(id1).outEdge[id2] = weight
             self.graphDict.get(id2).inEdge[id1] = weight
             return True
