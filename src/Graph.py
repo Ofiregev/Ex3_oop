@@ -32,11 +32,14 @@ class Digraph():
         return self.graphDict
 
     def all_in_edges_of_node(self, id1: int) -> dict:
+        return self.graphDict.get(id1).inEdge
         """return a dictionary of all the nodes connected to (into) node_id ,
         each node is represented using a pair (other_node_id, weight)
          """
 
     def all_out_edges_of_node(self, id1: int) -> dict:
+        return self.graphDict.get(id1).outEdge
+
         """return a dictionary of all the nodes connected from node_id , each node is represented using a pair
         (other_node_id, weight)
         """
@@ -62,7 +65,7 @@ class Digraph():
         Note: 
          will do nothing
         """
-        raise NotImplementedError
+
 
     def add_node(self, node_id: int, pos: tuple = None) -> bool:
         if self.graphDict.get(node_id) is not None:
@@ -91,8 +94,12 @@ class Digraph():
         """
     #
     def remove_edge(self, node_id1: int, node_id2: int) -> bool:
-        if (self.graphDict.get(node_id1).outEdge.get(node_id2) == None or self.graphDict.get(node_id2).inEdge.get(node_id1) == None):
+        if self.graphDict.get(node_id1).outEdge.get(node_id2) is None or self.graphDict.get(node_id2).inEdge.get(node_id1) is None:
             return False
+        del (self.graphDict.get(node_id1).outEdge)[node_id2]
+        del (self.graphDict.get(node_id2).inEdge)[node_id1]
+        return True
+
         """
         Removes an edge from the graph.
         @param node_id1: The start node of the edge
@@ -136,8 +143,16 @@ def main():
     # g.load_from_json(file)
     print(g.add_node(2, ("3","3","0")))
     print(g.add_node(1, ("3","3","0")))
-    print(g.remove_node(1))
-    print(g.remove_node(1))
+    print(g.add_node(3, ("3","3","0")))
+
+    print(g.add_edge(1,2,5.4))
+    print(g.add_edge(3,1,5.4))
+    print(g.add_edge(2,1,5.4))
+
+    print(g.all_in_edges_of_node(1))
+    print(g.all_out_edges_of_node(2))
+
+
 
 
 
