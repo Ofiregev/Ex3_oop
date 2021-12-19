@@ -19,7 +19,7 @@ class Test_read_from_file(unittest.TestCase):
         self.assertFalse(g.remove_node(1))
         c = g.add_node(1, ("2", "2", "2"))
         self.assertTrue(g.remove_node(1))
-        self.assertIsNone(g.graphDict.get(1))
+        self.assertIsNone(g.graphDict.get(3))
 
 if __name__ == '__main__':
     unittest.main()
