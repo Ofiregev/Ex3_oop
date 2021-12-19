@@ -13,15 +13,11 @@ class Test_read_from_file(unittest.TestCase):
         self.assertEqual(g.graphDict[1], v)
         self.assertTrue(g.remove_node(1))
 
-    def read_from_json(self):
+    # def read_from_json(self):
+
 
     def remove_node(self):
 
-
-
-
-    # def add_node(self):
-    #     self.assertEqual(src.Graph.Digraph.add_node(8,("4","5","6")) ==True,True)
 
 
 if __name__ == '__main__':
