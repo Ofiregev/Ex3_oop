@@ -16,7 +16,7 @@ class Test_read_from_file(unittest.TestCase):
     # def read_from_json(self):
 
 
-    def remove_node(self):
+    # def remove_node(self):
 
 
 
