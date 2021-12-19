@@ -2,25 +2,24 @@ import json
 import string
 
 
-class Digraph():
+class DiGraph():
     def __init__(self):
-        self.graphDict = {} #{key :node_id, value: node_data}
+        self.graphDict = {}  # {key :node_id, value: node_data}
         self.mc = 0
 
-    def load_from_json(self, Filename:string):
+    def load_from_json(self, Filename: string):
         with open(Filename, 'r') as w:
             obj = json.load(w)
             nodes = obj["Nodes"]
             edge = obj["Edges"]
-            Nodes =[]
-            Edges =[]
+            Nodes = []
+            Edges = []
         for n in nodes:
             Nodes.append(Node(n))
         for e in edge:
             Edges.append(Edge(e))
         for i in Nodes:
             self.graphDict[i.id] = i
-
 
     def v_size(self) -> int:
         return self.Nodes.__len__()
@@ -66,20 +65,27 @@ class Digraph():
          will do nothing
         """
 
-
     def add_node(self, node_id: int, pos: tuple = None) -> bool:
         if self.graphDict.get(node_id) is not None:
             return False
-        list ={}
+
+        """ checking why we need to insert empty pos"""
+        if pos is None:
+            list = {}
+            list["id"] = node_id
+            list["pos"] = ""
+            node = Node(list)
+            self.graphDict[node_id] = node
+            return True
+        list = {}
         str = pos[0]
         for st in pos[1:]:
-            str+="," +st
+            str += "," + st
         list["id"] = node_id
-        list["pos"] =str
+        list["pos"] = str
         node = Node(list)
         self.graphDict[node_id] = node
         return True
-
 
     def remove_node(self, node_id: int) -> bool:
         if self.graphDict.__contains__(node_id):
@@ -92,9 +98,11 @@ class Digraph():
         @return: True if the node was removed successfully, False o.w.
         Note: if the node id does not exists the function will do nothing
         """
+
     #
     def remove_edge(self, node_id1: int, node_id2: int) -> bool:
-        if self.graphDict.get(node_id1).outEdge.get(node_id2) is None or self.graphDict.get(node_id2).inEdge.get(node_id1) is None:
+        if self.graphDict.get(node_id1).outEdge.get(node_id2) is None or self.graphDict.get(node_id2).inEdge.get(
+                node_id1) is None:
             return False
         del (self.graphDict.get(node_id1).outEdge)[node_id2]
         del (self.graphDict.get(node_id2).inEdge)[node_id1]
@@ -110,12 +118,11 @@ class Digraph():
 
 
 class Node:
-    def __init__(self,list):
+    def __init__(self, list):
         self.id = list["id"]
         self.pos = list["pos"]
-        self.inEdge ={}  #this is dic of edge into our node <"other node.id",w>
-        self.outEdge ={} #this is dic of edge from our node <"other node.id",w>
-
+        self.inEdge = {}  # this is dic of edge into our node <"other node.id",w>
+        self.outEdge = {}  # this is dic of edge from our node <"other node.id",w>
 
     def __repr__(self):
         return f"(node id: {self.id} node pos: {self.pos})"
@@ -138,24 +145,20 @@ class Edge:
 
 
 def main():
-    g = Digraph()
+    g = DiGraph()
     # file ='../data/A5.json'
     # g.load_from_json(file)
-    print(g.add_node(2, ("3","3","0")))
-    print(g.add_node(1, ("3","3","0")))
-    print(g.add_node(3, ("3","3","0")))
+    print(g.add_node(2, ("3", "3", "0")))
+    print(g.add_node(1, ("3", "3", "0")))
+    print(g.add_node(3, ("3", "3", "0")))
 
-    print(g.add_edge(1,2,5.4))
-    print(g.add_edge(3,1,5.4))
-    print(g.add_edge(2,1,5.4))
+    print(g.add_edge(1, 2, 5.4))
+    print(g.add_edge(3, 1, 5.4))
+    print(g.add_edge(2, 1, 5.4))
 
     print(g.all_in_edges_of_node(1))
     print(g.all_out_edges_of_node(2))
 
 
-
-
-
 if __name__ == '__main__':
     main()
-

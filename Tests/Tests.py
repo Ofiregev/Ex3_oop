@@ -5,7 +5,7 @@ import src
 
 class Test_read_from_file(unittest.TestCase):
     def test_add(self):
-        g = Graph.Digraph()
+        g = DiGraph.DiGraph()
         c = g.add_node(1,("2","2","2"))
         cc = g.add_node(1,("2","2","3"))
         self.assertFalse(cc)
@@ -15,20 +15,20 @@ class Test_read_from_file(unittest.TestCase):
     # def read_from_json(self):
 
     def test_remove_node(self):
-        g = Graph.Digraph()
+        g = DiGraph.DiGraph()
         self.assertFalse(g.remove_node(1))
         c = g.add_node(1, ("2", "2", "2"))
         self.assertTrue(g.remove_node(1))
         self.assertIsNone(g.graphDict.get(3))
 
     def test_add_Edge(self):
-        g = Graph.Digraph()
+        g = DiGraph.DiGraph()
         g.add_node(2, ("3", "3", "0"))
         g.add_node(1, ("3", "3", "0"))
         self.assertTrue(g.add_edge(1,2,5.4))
 
     def test_remove_Edge(self):
-        g = Graph.Digraph()
+        g = DiGraph.DiGraph()
         g.add_node(2, ("3", "3", "0"))
         g.add_node(1, ("3", "3", "0"))
         g.add_edge(1, 2, 5.4)
@@ -38,7 +38,7 @@ class Test_read_from_file(unittest.TestCase):
         self.assertFalse(g.remove_edge(1,2))
 
     def test_in_edge(self):
-        g = Graph.Digraph()
+        g = DiGraph.DiGraph()
         g.add_node(1, ("3", "3", "0"))
         g.add_node(2, ("3", "3", "0"))
         g.add_node(3, ("3", "3", "0"))
