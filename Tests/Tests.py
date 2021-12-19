@@ -1,5 +1,5 @@
 import unittest
-import Graph
+import DiGraph
 import src
 
 
