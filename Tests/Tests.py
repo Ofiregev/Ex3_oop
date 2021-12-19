@@ -22,7 +22,7 @@ class Test_read_from_file(unittest.TestCase):
         self.assertIsNone(g.graphDict.get(3))
 
     def test_add_Edge(self):
-        g = Graph.Digraph
+        g = Graph.Digraph()
         g.add_node(2, ("3", "3", "0"))
         g.add_node(1, ("3", "3", "0"))
         self.assertTrue(g.add_edge(1,2,5.4))
