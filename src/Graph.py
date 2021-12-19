@@ -46,6 +46,10 @@ class Digraph():
         return self.mc
 
     def add_edge(self, id1: int, id2: int, weight: float) -> bool:
+        if self.graphDict.get(id1)==None or self.graphDict.get(id2)==None:
+            return False
+        self.graphDict.get(id1).outEdge[id2] = weight
+        self.graphDict.get(id2).inEdge[id1] = weight
 
         """
         Adds an edge to the graph.
@@ -59,7 +63,7 @@ class Digraph():
         raise NotImplementedError
 
     def add_node(self, node_id: int, pos: tuple = None) -> bool:
-        if self.graphDict.get(node_id) != None:
+        if self.graphDict.get(node_id) is not None:
             return False
         list ={}
         str = pos[0]
@@ -84,22 +88,25 @@ class Digraph():
         Note: if the node id does not exists the function will do nothing
         """
     #
-    # def remove_edge(self, node_id1: int, node_id2: int) -> bool:
-    #     """
-    #     Removes an edge from the graph.
-    #     @param node_id1: The start node of the edge
-    #     @param node_id2: The end node of the edge
-    #     @return: True if the edge was removed successfully, False o.w.
-    #     Note: If such an edge does not exists the function will do nothing
-    #     """
-    #     raise NotImplementedErro
+    def remove_edge(self, node_id1: int, node_id2: int) -> bool:
+        if (self.graphDict.get(node_id1).outEdge.get(node_id2) == None or self.graphDict.get(node_id2).inEdge.get(node_id1) == None):
+            return False
+        """
+        Removes an edge from the graph.
+        @param node_id1: The start node of the edge
+        @param node_id2: The end node of the edge
+        @return: True if the edge was removed successfully, False o.w.
+        Note: If such an edge does not exists the function will do nothing
+        """
+
 
 class Node:
     def __init__(self,list):
         self.id = list["id"]
         self.pos = list["pos"]
-        self.inEdge ={}  #this is dic of edge into our node <"other nide.id",w>
-        self.outEdge ={} #this is dic of edge from our node <"other nide.id",w>
+        self.inEdge ={}  #this is dic of edge into our node <"other node.id",w>
+        self.outEdge ={} #this is dic of edge from our node <"other node.id",w>
+
 
     def __repr__(self):
         return f"(node id: {self.id} node pos: {self.pos})"
