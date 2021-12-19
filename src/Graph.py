@@ -46,11 +46,13 @@ class Digraph():
         return self.mc
 
     def add_edge(self, id1: int, id2: int, weight: float) -> bool:
-        if self.graphDict.get(id1)==None or self.graphDict.get(id2)==None:
+        if self.graphDict.get(id1) == None or self.graphDict.get(id2) == None:
             return False
+        if self.graphDict.get(id1).inEdge.get(id2) != None or self.graphDict.get(id2).outEdge[id1] != None:
+           return False
         self.graphDict.get(id1).outEdge[id2] = weight
         self.graphDict.get(id2).inEdge[id1] = weight
-
+        return True
         """
         Adds an edge to the graph.
         @param id1: The start node of the edge

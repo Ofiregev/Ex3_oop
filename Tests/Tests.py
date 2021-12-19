@@ -21,5 +21,12 @@ class Test_read_from_file(unittest.TestCase):
         self.assertTrue(g.remove_node(1))
         self.assertIsNone(g.graphDict.get(3))
 
+    def test_add_Edge(self):
+        g = Graph.Digraph
+        g.add_node(2, ("3", "3", "0"))
+        g.add_node(1, ("3", "3", "0"))
+        self.assertTrue(g.add_edge(1,2,5.4))
+
+
 if __name__ == '__main__':
     unittest.main()
