@@ -54,7 +54,21 @@ class Test_read_from_file(unittest.TestCase):
         g= GraphAlgo.GraphAlgo()
         file ='../data/A5.json'
         b = g.load_from_json(file)
-        self.assertTrue(b);
+        self.assertTrue(b)
+
+    def test_iterationExsemple(self):
+        g = GraphAlgo.GraphAlgo()
+        file = '../data/A5.json'
+        b = g.load_from_json(file)
+        d ={"Edge:" : [] ,"Nodes" : []}
+        for key in g.g.graphDict.keys():
+            print(g.g.graphDict.get(key))
+            d.get("Nodes").append({
+                "pos": g.g.graphDict.get(key),
+                "id": key
+            })
+        print(d)
+        self.assertTrue(True, "this is an iterator Example")
 
     def test_getEdgeBySrc(self):
         g = DiGraph.DiGraph()
@@ -67,14 +81,7 @@ class Test_read_from_file(unittest.TestCase):
         g.add_edge(1,4,12)
         g.add_edge(2,1,23)
         list = [2,3,4]
-        self.assertEqual(list,g.getEdgeBySrc(1))
-
-
-
-
-
-
-
+        self.assertEqual(list, g.getEdgeBySrc(1))
 
 if __name__ == '__main__':
     unittest.main()

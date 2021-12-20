@@ -122,7 +122,7 @@ class Node:
         return self.inEdge
 
     def __repr__(self):
-        return f"(node id: {self.id} node pos: {self.pos})"
+        return f"(id: {self.id} node pos: {self.pos})"
 
     def __str__(self):
         return f"(node id: {self.id} node pos: {self.pos})"
