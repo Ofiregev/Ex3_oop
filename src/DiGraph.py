@@ -20,6 +20,7 @@ class DiGraph():
             Edges.append(Edge(e))
         for i in Nodes:
             self.graphDict[i.id] = i
+        return True
 
     def v_size(self) -> int:
         return self.Nodes.__len__()

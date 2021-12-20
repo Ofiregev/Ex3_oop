@@ -50,9 +50,9 @@ class Test_read_from_file(unittest.TestCase):
         self.assertEqual(g.all_out_edges_of_node(3),{1:27,2:27})
 
     def test_loadFrom_json(self):
-        g = DiGraph()
+        g = DiGraph.DiGraph()
         file ='../data/A5.json'
-        b= g.load_from_json(file)
+        b = g.load_from_json(file)
         self.assertTrue(b);
 
 
