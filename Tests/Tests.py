@@ -49,6 +49,12 @@ class Test_read_from_file(unittest.TestCase):
         self.assertEqual(g.all_in_edges_of_node(1),{2:44,3:27})
         self.assertEqual(g.all_out_edges_of_node(3),{1:27,2:27})
 
+    def test_loadFrom_json(self):
+        g = DiGraph()
+        file ='../data/A5.json'
+        b= g.load_from_json(file)
+        self.assertTrue(b);
+
 
 
 if __name__ == '__main__':
