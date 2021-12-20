@@ -1,5 +1,6 @@
 import json
 from math import inf
+import queue
 
 from DiGraph import Node, Edge, DiGraph
 
@@ -8,6 +9,7 @@ class GraphAlgo:
     def __init__(self):
         self.g = DiGraph()
         self.D ={}
+        self.nodeQ = queue.Queue()
         # self.D[1] ={}
         # self.D["max"] = -inf
 
@@ -49,5 +51,8 @@ class GraphAlgo:
         @return: True if the save was successful, False o.w.
         """
         raise NotImplementedError
+
+    def Dijkstra(self,src :int):
+
 
 

@@ -102,6 +102,12 @@ class DiGraph():
         Note: If such an edge does not exists the function will do nothing
         """
 
+    def getEdgeBySrc(self, v: int) -> list:
+        """this function get node id and return a list of all of its neighbors"""
+        list = []
+        for i in self.graphDict.get(v).outEdge:
+            list.append(i)
+        return list
 
 class Node:
     def __init__(self, list):
@@ -120,13 +126,6 @@ class Node:
 
     def __str__(self):
         return f"(node id: {self.id} node pos: {self.pos})"
-
-    def getEdgeBySrc(self: DiGraph ,v :int)  -> list:
-        """this function get node id and return a list of all of its neighbors"""
-        list =[]
-        for i in self.outEdge:
-                list.append(self.outEdge[i])
-        return list
 
 
 class Edge:
@@ -152,7 +151,9 @@ def main():
 
     print(g.add_edge(1, 2, 5.4))
     print(g.add_edge(3, 1, 5.4))
-    print(g.add_edge(2, 1, 5.4))
+    print(g.add_edge(1, 3, 5.4))
+    print(g.getEdgeBySrc(1))
+
 
     print(g.all_in_edges_of_node(1))
     print(g.all_out_edges_of_node(2))

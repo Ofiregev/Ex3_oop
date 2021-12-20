@@ -56,6 +56,24 @@ class Test_read_from_file(unittest.TestCase):
         b = g.load_from_json(file)
         self.assertTrue(b);
 
+    def test_getEdgeBySrc(self):
+        g = DiGraph.DiGraph()
+        g.add_node(1)
+        g.add_node(2)
+        g.add_node(3)
+        g.add_node(4)
+        g.add_edge(1,2,11)
+        g.add_edge(1,3,12)
+        g.add_edge(1,4,12)
+        g.add_edge(2,1,23)
+        list = [2,3,4]
+        self.assertEqual(list,g.getEdgeBySrc(1))
+
+
+
+
+
+
 
 
 if __name__ == '__main__':
