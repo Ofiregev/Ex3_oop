@@ -1,4 +1,5 @@
 import json
+from math import inf
 
 from DiGraph import Node, Edge, DiGraph
 
@@ -6,6 +7,10 @@ from DiGraph import Node, Edge, DiGraph
 class GraphAlgo:
     def __init__(self):
         self.g = DiGraph()
+        self.D ={}
+        # self.D[1] ={}
+        # self.D["max"] = -inf
+
 
     def get_graph(self) -> DiGraph:
         """
@@ -36,4 +41,13 @@ class GraphAlgo:
         for i in Nodes:
             self.g.graphDict[i.id] = i
         return True
+
+    def save_to_json(self, file_name: str) -> bool:
+        """
+        Saves the graph in JSON format to a file
+        @param file_name: The path to the out file
+        @return: True if the save was successful, False o.w.
+        """
+        raise NotImplementedError
+
 

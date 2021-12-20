@@ -7,25 +7,6 @@ class DiGraph():
         self.graphDict = {}  # {key :node_id, value: node_data}
         self.mc = 0
 
-    def load_from_json(self, Filename: string):
-        try:
-            f = open(Filename, 'r')
-        except IOError:
-            return False
-        with f as w:
-            obj = json.load(w)
-            nodes = obj["Nodes"]
-            edge = obj["Edges"]
-            Nodes = []
-            Edges = []
-        for n in nodes:
-            Nodes.append(Node(n))
-        for e in edge:
-            Edges.append(Edge(e))
-        for i in Nodes:
-            self.graphDict[i.id] = i
-        return True
-
     def v_size(self) -> int:
         return self.Nodes.__len__()
 
@@ -128,6 +109,11 @@ class Node:
         self.pos = list["pos"]
         self.inEdge = {}  # this is dic of edge into our node <"other node.id",w>
         self.outEdge = {}  # this is dic of edge from our node <"other node.id",w>
+
+
+
+    def __iter__(self):
+        return self.inEdge
 
     def __repr__(self):
         return f"(node id: {self.id} node pos: {self.pos})"
