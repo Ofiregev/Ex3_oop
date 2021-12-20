@@ -52,7 +52,7 @@ class Test_read_from_file(unittest.TestCase):
 
     def test_loadFrom_json(self):
         g = GraphAlgo.GraphAlgo()
-        file ='../data/A5.json'
+        file ='../data/A7.json'
         b = g.load_from_json(file)
         self.assertTrue(b);
 
