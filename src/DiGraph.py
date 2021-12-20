@@ -8,7 +8,11 @@ class DiGraph():
         self.mc = 0
 
     def load_from_json(self, Filename: string):
-        with open(Filename, 'r') as w:
+        try:
+            f = open(Filename, 'r')
+        except IOError:
+            return False
+        with f as w:
             obj = json.load(w)
             nodes = obj["Nodes"]
             edge = obj["Edges"]
