@@ -121,6 +121,13 @@ class Node:
     def __str__(self):
         return f"(node id: {self.id} node pos: {self.pos})"
 
+    def getEdgeBySrc(self: DiGraph ,v :int)  -> list:
+        """this function get node id and return a list of all of its neighbors"""
+        list =[]
+        for i in self.outEdge:
+                list.append(self.outEdge[i])
+        return list
+
 
 class Edge:
     def __init__(self, list):
