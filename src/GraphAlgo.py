@@ -43,19 +43,16 @@ class GraphAlgo:
         for i in Nodes:
             self.g.graphDict[i.id] = i
         return True
+
     def save_to_json(self, file_name: str) -> bool:
         """
         Saves the graph in JSON format to a file
         @param file_name: The path to the out file
         @return: True if the save was successful, False o.w.
         """
-        try:
-            my_file = {"Nodes": None }
-            json_object = json.dumps(my_file)
-            with open(file_name, 'w') as outFile:
-                outFile.write(json_object)
-            return True
-        except:
-            return False
-        else:
-            return True
+        raise NotImplementedError
+
+    def Dijkstra(self,src :int):
+
+
+
