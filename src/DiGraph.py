@@ -109,6 +109,9 @@ class DiGraph():
             list.append(i)
         return list
 
+    def getWeightOfEdge(self,src :int,dest: int )->float:
+        return self.graphDict.get(src).outEdge[dest]
+
 class Node:
     def __init__(self, list):
         self.id = list["id"]

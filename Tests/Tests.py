@@ -69,6 +69,34 @@ class Test_read_from_file(unittest.TestCase):
         list = [2,3,4]
         self.assertEqual(list,g.getEdgeBySrc(1))
 
+    def test_getweightbysrc(self):
+        g = DiGraph.DiGraph()
+        g.add_node(1)
+        g.add_node(2)
+        g.add_node(3)
+        g.add_node(4)
+        g.add_edge(1, 2, 11)
+        g.add_edge(1, 3, 12)
+        g.add_edge(1, 4, 12)
+        g.add_edge(2, 1, 23)
+        self.assertEqual(11,g.getWeightOfEdge(1,2))
+        self.assertEqual(23,g.getWeightOfEdge(2,1))
+
+    def test_shortest_path(self):
+        d = GraphAlgo.GraphAlgo()
+        g = d.g
+        g.add_node(0, ("1", "2", "2"))
+        g.add_node(1, ("1", "2", "2"))
+        g.add_node(2, ("1", "2", "2"))
+
+        g.add_edge(2, 1, 3)
+        g.add_edge(0, 1, 8)
+        g.add_edge(0, 2, 1)
+        g.add_edge(1, 2, 4)
+        self.assertEqual([4, [0, 2, 1]],d.shortest_path(0,1))
+        self.assertEqual([float('inf'),[]],d.shortest_path(1,4))
+
+
 
 
 
