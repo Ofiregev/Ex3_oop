@@ -109,6 +109,8 @@ class Test_read_from_file(unittest.TestCase):
         g.add_edge(1, 2, 4)
         self.assertEqual([4, [0, 2, 1]], d.shortest_path(0, 1))
         self.assertEqual([float('inf'), []], d.shortest_path(1, 4))
+        print(d.D["maxPath"])
+        self.assertEqual(8,d.D["maxPath"])
 
 
 if __name__ == '__main__':

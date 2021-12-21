@@ -72,6 +72,7 @@ class GraphAlgo:
 
 
     def Dijkstra(self,src :int):
+        self.D["maxPath"] = float(-inf)
         for i in self.g.graphDict:
             if i == src:
                 self.nodeQ.append({"id":src,"w":0})
@@ -99,6 +100,13 @@ class GraphAlgo:
             self.D[t] =  curr_w
             self.parent[t] = v
             self.nodeQ.append({"id":t,"w":curr_w})
+            self.maxPath(curr_w)
+
+
+
+    def maxPath(self,path:float):
+        if path > self.D["maxPath"]:
+            self.D["maxPath"] = path
 
     def shortest_path(self, id1: int, id2: int) -> (float, list):
         if self.g.graphDict.get(id2) is None or self.g.graphDict.get(id1) is None:
