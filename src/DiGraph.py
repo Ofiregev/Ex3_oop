@@ -64,11 +64,17 @@ class DiGraph():
             self.graphDict[node_id] = node
             return True
         list = {}
-        str = pos[0]
+        if type(pos) is str:
+            list["pos"] = pos
+            list["id"] = node_id
+            node = Node(list)
+            self.graphDict[node_id] =node
+            return True
+        s = str(pos[0])
         for st in pos[1:]:
-            str += "," + st
+            s += "," + str(st)
         list["id"] = node_id
-        list["pos"] = str
+        list["pos"] = s
         node = Node(list)
         self.graphDict[node_id] = node
         return True
@@ -109,7 +115,7 @@ class DiGraph():
             list.append(i)
         return list
 
-    def getWeightOfEdge(self,src :int,dest: int )->float:
+    def getWeightOfEdge(self,src :int, dest: int )->float:
         return self.graphDict.get(src).outEdge[dest]
 
 class Node:
@@ -132,10 +138,6 @@ class Node:
 
 
 
-####j#J3j3jJ#j
-
-
-
 class Edge:
     def __init__(self, list):
         self.src = list["src"]
@@ -153,18 +155,18 @@ def main():
     g = DiGraph()
     # file ='../data/A5.json'
     # g.load_from_json(file)
-    print(g.add_node(2, ("3", "3", "0")))
-    print(g.add_node(1, ("3", "3", "0")))
-    print(g.add_node(3, ("3", "3", "0")))
-
-    print(g.add_edge(1, 2, 5.4))
-    print(g.add_edge(3, 1, 5.4))
-    print(g.add_edge(1, 3, 5.4))
-    print(g.getEdgeBySrc(1))
-
-
-    print(g.all_in_edges_of_node(1))
-    print(g.all_out_edges_of_node(2))
+    g.add_node(2, ("3.536", "3", "0"))
+    # print(g.add_node(1, ("3", "3", "0")))
+    # print(g.add_node(3, ("3", "3", "0")))
+    #
+    # print(g.add_edge(1, 2, 5.4))
+    # print(g.add_edge(3, 1, 5.4))
+    # print(g.add_edge(1, 3, 5.4))
+    # print(g.getEdgeBySrc(1))
+    #
+    #
+    # print(g.all_in_edges_of_node(1))
+    # print(g.all_out_edges_of_node(2))
 
 
 if __name__ == '__main__':
