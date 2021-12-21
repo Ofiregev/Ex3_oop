@@ -109,8 +109,23 @@ class Test_read_from_file(unittest.TestCase):
         g.add_edge(1, 2, 4)
         self.assertEqual([4, [0, 2, 1]], d.shortest_path(0, 1))
         self.assertEqual([float('inf'), []], d.shortest_path(1, 4))
-        print(d.D["maxPath"])
-        self.assertEqual(8,d.D["maxPath"])
+
+
+
+    def test_shortest_path(self):
+        d = GraphAlgo.GraphAlgo()
+        g = d.g
+        g.add_node(0, ("1", "2", "2"))
+        g.add_node(1, ("1", "2", "2"))
+        g.add_node(2, ("1", "2", "2"))
+
+        g.add_edge(2, 1, 3)
+        g.add_edge(0, 1, 8)
+        g.add_edge(0, 2, 1)
+        g.add_edge(1, 2, 4)
+        d.Dijkstra(0)
+        self.assertEqual(8, d.D["maxPath"])
+
 
 
 if __name__ == '__main__':

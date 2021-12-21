@@ -1,4 +1,5 @@
 import json
+import time
 from math import inf
 import queue
 
@@ -72,6 +73,10 @@ class GraphAlgo:
 
 
     def Dijkstra(self,src :int):
+        self.D = {}
+        self.nodeQ = []
+        self.black = []
+        self.parent = {}
         self.D["maxPath"] = float(-inf)
         for i in self.g.graphDict:
             if i == src:
@@ -91,22 +96,19 @@ class GraphAlgo:
             nei = self.g.getEdgeBySrc(v)
             for i in nei:
                  self.relax(v, i)
+        for i in self.g.graphDict:
+            if self.D[i] > self.D["maxPath"]:
+                self.D["maxPath"] = self.D[i]
 
 
 
     def relax(self,v,t):
-        if self.D[t] > self.D[v] + self.g.getWeightOfEdge(v,t):
-            curr_w = self.D[v] + self.g.getWeightOfEdge(v,t)
-            self.D[t] =  curr_w
+        curr_w = self.D[v] + self.g.getWeightOfEdge(v, t)
+        if self.D[t] > float(curr_w):
+            self.D[t] = float(curr_w)
             self.parent[t] = v
-            self.nodeQ.append({"id":t,"w":curr_w})
-            self.maxPath(curr_w)
+            self.nodeQ.append({"id": t, "w": curr_w})
 
-
-
-    def maxPath(self,path:float):
-        if path > self.D["maxPath"]:
-            self.D["maxPath"] = path
 
     def shortest_path(self, id1: int, id2: int) -> (float, list):
         if self.g.graphDict.get(id2) is None or self.g.graphDict.get(id1) is None:
@@ -128,6 +130,23 @@ class GraphAlgo:
         list1.append(list2)
         return list1
 
+    def centerPoint(self) -> (int, float):
+        MAXLIST = {}
+        minMaxPath = float(inf)
+        node_id = -1
+        for i in self.g.graphDict.keys():
+            self.Dijkstra(i)
+            MAXLIST[i] = self.D.get("maxPath")
+            if self.D.get("maxPath") < minMaxPath:
+                minMaxPath = self.D.get("maxPath")
+                node_id = i
+        list = []
+        list.append(node_id)
+        list.append(minMaxPath)
+        print(MAXLIST)
+        print(MAXLIST.get(362))
+        return list
+
 def main():
     g = GraphAlgo()
     # file = '../data/A0.json'
@@ -146,11 +165,15 @@ def main():
 
 
 
-    # d=GraphAlgo()
-    # g = d.g
+    d=GraphAlgo()
     #
-    # # file ='../data/A5.json'
-    # # g.load_from_json(file)
+    file ='../data/1000Nodes.json'
+    d.load_from_json(file)
+    d.shortest_path(0,1)
+    start = time.time()
+    print("The center of", file, " graph is:",d.centerPoint(), "ofir hamalka regev")
+    end = time.time()
+    print(end-start)
     # print(g.add_node(2, ("3", "3", "0")))
     # print(g.add_node(1, ("3", "3", "0")))
     # print(g.add_node(3, ("3", "3", "0")))
@@ -158,6 +181,7 @@ def main():
     # print(g.add_edge(1, 2, 5.4))
     # print(g.add_edge(3, 1, 5.4))
     # print(g.add_edge(1, 3, 5.4))
+
     # print(g.getEdgeBySrc(1))
     # print(GraphAlgo.Dijkstra(d,1))
 
