@@ -62,13 +62,12 @@ class GraphAlgo:
         dic["Edges"] = ed
         json_object = json.dumps(dic)
         try:
-            f = open(file_name, 'r')
+            f = open(file_name , 'w')
         except IOError:
             return False
-        else:
-            with open(f, 'w') as outFile:
-                outFile.write(json_object)
-            return True
+        with f as outFile:
+            outFile.write(json_object)
+        return True
 
 
     def Dijkstra(self,src :int):
