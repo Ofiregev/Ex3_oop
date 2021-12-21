@@ -58,14 +58,16 @@ class Test_read_from_file(unittest.TestCase):
 
     def test_iterationExsemple(self):
         g = GraphAlgo.GraphAlgo()
-        file = '../data/A5.json'
+        file = '../data/A0.json'
         b = g.load_from_json(file)
-        nd =[]
-        ed =[]
-        for key in g.g.graphDict.keys():
-            nd.append({"id": key ,
-                       "pos":g.g.graphDict[key].pos})
-        print(nd)
+        # nd =[]
+        # ed =[]
+        # count =0
+        # for key in g.g.graphDict.keys():
+        #     nd.append({"id": key ,
+        #                "pos":g.g.graphDict[key].pos})
+        #     for e in g.g.graphDict[key].outEdge:
+        #         ed.append({"src":key ,"w":g.g.graphDict[key].outEdge[e] , "dest": e})
         self.assertTrue(True, "this is an iterator Example")
 
     def test_getEdgeBySrc(self):
