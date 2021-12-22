@@ -118,6 +118,13 @@ class DiGraph():
     def getWeightOfEdge(self,src :int, dest: int )->float:
         return self.graphDict.get(src).outEdge[dest]
 
+    def posGetX(self,pos:str):
+        s = pos.split(',')
+        return s[0]
+
+    def posGetX(self,pos:str):
+        s = pos.split(',')
+        return s[1]
 class Node:
     def __init__(self, list):
         self.id = list["id"]
