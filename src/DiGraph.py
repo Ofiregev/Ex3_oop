@@ -52,6 +52,7 @@ class DiGraph():
         """
 
     def add_node(self, node_id: int, pos: tuple = None) -> bool:
+        self.mc = self.mc + 1
         if self.graphDict.get(node_id) is not None:
             return False
 
@@ -125,6 +126,7 @@ class DiGraph():
     def posGetX(self,pos:str):
         s = pos.split(',')
         return s[1]
+
 class Node:
     def __init__(self, list):
         self.id = list["id"]
