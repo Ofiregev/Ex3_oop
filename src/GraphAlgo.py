@@ -2,6 +2,8 @@ import copy
 import json
 import time
 from math import inf
+import queue
+from tkinter import Tk
 
 from DiGraph import Node, Edge, DiGraph
 
@@ -70,7 +72,6 @@ class GraphAlgo:
             outFile.write(json_object)
         return True
 
-
     def TSP(self, node_lst: list[int]) -> (list[int], float):
         min =inf
         """this is the Global min for all the permutations"""
@@ -79,10 +80,9 @@ class GraphAlgo:
         for i in node_lst:
             """checking when every node is the beginning of the circle what is the most good permutation"""
             temp = self.find_way(copy.deepcopy(node_lst), i)
-            if temp[1] <= min:
+            if temp[1] < min:
                 min = temp[1]
                 lst =temp [0]
-                print(temp)
         return [lst, min]
 
     def find_way(self, lst:list ,start:int):
@@ -105,7 +105,6 @@ class GraphAlgo:
             w += min
         per.append(start)
         self.Dijkstra(nex)
-        print(start,self.D.get(start))
         w += self.D.get(start)
 
         return [per,w]
@@ -183,12 +182,18 @@ class GraphAlgo:
         list = []
         list.append(node_id)
         list.append(minMaxPath)
-        print(MAXLIST)
-        print(MAXLIST.get(362))
+        # print(MAXLIST)
+        # print(MAXLIST.get(362))
         return list
+
+    # def plot_graph(self) -> None:
+    #     startG();
+
+
 
 def main():
     g = GraphAlgo()
+    # g.plot_graph()
     # file = '../data/A0.json'
     # g.load_from_json(file)
     # g.Dijkstra(1)
@@ -197,11 +202,41 @@ def main():
     #
     file ='../data/A5.json'
     d.load_from_json(file)
-    d.shortest_path(0,1)
-    start = time.time()
-    print("The center of", file, " graph is:",d.centerPoint(), "ofir hamalka regev")
+    begin = time.time()
+    # print("sP: ",d.shortest_path(0,10))
+    d.shortest_path(0,10)
+    time.sleep(1)
     end = time.time()
-    print(end-start)
+    print(f"Total sp runtime of the program is {end - begin}")
+
+    begin = time.time()
+    print(d.centerPoint())
+    # print("The center of", file, " graph is:",d.centerPoint())
+    time.sleep(1)
+    end = time.time()
+    print(f"Total center runtime of the program is {end - begin}")
+    list = []
+    for i in d.D:
+        if i == "maxPath":
+            continue
+        list.append(i)
+    begin = time.time()
+    print(d.TSP(list))
+    time.sleep(1)
+    end = time.time()
+    print(f"Total tsp runtime of the program is {end - begin}")
+
+
+
+
+
+
+
+
+
+
+
+
     # print(g.add_node(2, ("3", "3", "0")))
     # print(g.add_node(1, ("3", "3", "0")))
     # print(g.add_node(3, ("3", "3", "0")))
