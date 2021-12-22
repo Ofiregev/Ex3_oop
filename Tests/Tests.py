@@ -105,19 +105,12 @@ class Test_read_from_file(unittest.TestCase):
 
 
 
-    def test_shortest_path(self):
+    def test_Tsp(self):
         d = GraphAlgo.GraphAlgo()
-        g = d.g
-        g.add_node(0, ("1", "2", "2"))
-        g.add_node(1, ("1", "2", "2"))
-        g.add_node(2, ("1", "2", "2"))
-
-        g.add_edge(2, 1, 3)
-        g.add_edge(0, 1, 8)
-        g.add_edge(0, 2, 1)
-        g.add_edge(1, 2, 4)
-        d.Dijkstra(0)
-        self.assertEqual(8, d.D["maxPath"])
+        file = '../data/A1.json'
+        b = d.load_from_json(file)
+        l =d.TSP([2,4,2,16,1,13,10,14])
+        self.assertTrue(l, [1,3,2,1])
 
 
 

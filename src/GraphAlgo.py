@@ -1,7 +1,9 @@
+import copy
 import json
 import time
 from math import inf
 import queue
+from tkinter import Tk
 
 from DiGraph import Node, Edge, DiGraph
 
@@ -69,6 +71,43 @@ class GraphAlgo:
         with f as outFile:
             outFile.write(json_object)
         return True
+    def TSP(self, node_lst: list[int]) -> (list[int], float):
+        min =inf
+        """this is the Global min for all the permutations"""
+        lst =[]
+        """this lst will represent the most better permutation of the list"""
+        for i in node_lst:
+            """checking when every node is the beginning of the circle what is the most good permutation"""
+            temp = self.find_way(copy.deepcopy(node_lst), i)
+            if temp[1] < min:
+                min = temp[1]
+                lst =temp [0]
+        return [lst, min]
+
+    def find_way(self, lst:list ,start:int):
+        per =[]
+        per.append(start)
+        lst.remove(start)
+        index = 0
+        w = 0
+        nex = start
+        while lst:
+            self.Dijkstra(nex)
+            min = self.D.get(lst[0])
+            for e in lst:
+                if self.D.get(e) <= min:
+                    min = self.D.get(e)
+                    index = e
+            nex = index
+            lst.remove(nex)
+            per.append(nex)
+            w += min
+        per.append(start)
+        self.Dijkstra(nex)
+        w += self.D.get(start)
+
+        return [per,w]
+
 
 
     def Dijkstra(self,src :int):
@@ -146,27 +185,21 @@ class GraphAlgo:
         print(MAXLIST.get(362))
         return list
 
+    def plot_graph(self) -> None:
+        startG();
+
+
+
 def main():
     g = GraphAlgo()
+    g.plot_graph()
     # file = '../data/A0.json'
     # g.load_from_json(file)
     # g.Dijkstra(1)
 
-
-
-
-
-
-
-
-
-
-
-
-
     d=GraphAlgo()
     #
-    file ='../data/1000Nodes.json'
+    file ='../data/A5.json'
     d.load_from_json(file)
     d.shortest_path(0,1)
     start = time.time()
