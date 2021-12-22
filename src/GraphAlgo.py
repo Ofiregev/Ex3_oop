@@ -79,9 +79,10 @@ class GraphAlgo:
         for i in node_lst:
             """checking when every node is the beginning of the circle what is the most good permutation"""
             temp = self.find_way(copy.deepcopy(node_lst), i)
-            if temp[1] < min:
+            if temp[1] <= min:
                 min = temp[1]
                 lst =temp [0]
+                print(temp)
         return [lst, min]
 
     def find_way(self, lst:list ,start:int):
@@ -104,6 +105,7 @@ class GraphAlgo:
             w += min
         per.append(start)
         self.Dijkstra(nex)
+        print(start,self.D.get(start))
         w += self.D.get(start)
 
         return [per,w]
