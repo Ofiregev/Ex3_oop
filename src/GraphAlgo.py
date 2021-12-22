@@ -2,8 +2,6 @@ import copy
 import json
 import time
 from math import inf
-import queue
-from tkinter import Tk
 
 from DiGraph import Node, Edge, DiGraph
 
@@ -71,6 +69,8 @@ class GraphAlgo:
         with f as outFile:
             outFile.write(json_object)
         return True
+
+
     def TSP(self, node_lst: list[int]) -> (list[int], float):
         min =inf
         """this is the Global min for all the permutations"""
@@ -187,14 +187,8 @@ class GraphAlgo:
         print(MAXLIST.get(362))
         return list
 
-    def plot_graph(self) -> None:
-        startG();
-
-
-
 def main():
     g = GraphAlgo()
-    g.plot_graph()
     # file = '../data/A0.json'
     # g.load_from_json(file)
     # g.Dijkstra(1)
