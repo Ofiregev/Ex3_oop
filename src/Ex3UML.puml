@@ -1,0 +1,69 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class DiGraph
+class GraphAlgo
+class Node
+class Edge
+
+GraphAlgo .> DiGraph
+DiGraph ...>Node
+DiGraph ...>Edge
+
+class DiGraph{
+graphdict = {}
+mc
++v_size()
++e_size()
++get_all_v()
++all_in_edges_of_node()
++all_out_edges_of_node()
++get_mc()
++add_edge()
++add_node()
++remove_node()
++remove_edge()
+*getEdgeBySrc()
+*getWeightOfEdge()
+*posGetX()
+*posGetY()
+}
+class GraphAlgo{
+g = DiGraph
+D = {}
+nodeQ = {}
+black = {}
+parent = {}
++get_graph()
++load_from_json()
++save_to_json()
++Tsp()
++shortest_path()
++center_point()
++plot_graph()
+*find_way()
+*Dijkstra()
+*relax()
+}
+class Node{
+id
+pos
+inEdge = {}
+outEdge = {}
+}
+class Edge{
+src
+dest
+w
+}
+
+
+
+
+
+
+
+
+
+
+@enduml

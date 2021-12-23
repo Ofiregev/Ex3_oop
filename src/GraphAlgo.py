@@ -190,23 +190,26 @@ class GraphAlgo:
 def main():
 
     # g.plot_graph()
-    # file = '../data/A0.json'
+    # file = '../data/A2.json'
     # g.load_from_json(file)
     # g.Dijkstra(1)
 
     d = GraphAlgo()
+    file = '../data/A5.json'
+    d.load_from_json(file)
+    d.plot_graph()
     # file = '../data/A0.json'
     # d.load_from_json(file)
     #
-    d.g.add_node(1, ("1,3,5"))
-    d.g.add_node(2, ("5,2,9"))
-    d.g.add_node(3, ("5,1,9"))
-    d.g.add_node(4, ("8,2,9"))
-    d.g.add_edge(1, 2, 5)
-    d.g.add_edge(1, 3, 7)
-    d.g.add_edge(1, 4, 2)
-    d.g.add_edge(2, 1, 1)
-    d.g.add_edge(4, 2, 3)
+    # d.g.add_node(1, ("1,3,5"))
+    # d.g.add_node(2, ("5,2,9"))
+    # d.g.add_node(3, ("5,1,9"))
+    # d.g.add_node(4, ("8,2,9"))
+    # d.g.add_edge(1, 2, 5)
+    # d.g.add_edge(1, 3, 7)
+    # d.g.add_edge(1, 4, 2)
+    # d.g.add_edge(2, 1, 1)
+    # d.g.add_edge(4, 2, 3)
     # d.save_to_json("try")
     d.plot_graph()
     # file ='../data/A5.json'

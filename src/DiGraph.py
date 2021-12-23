@@ -1,8 +1,4 @@
-import json
-import string
-
-
-class DiGraph():
+class DiGraph:
     def __init__(self):
         self.graphDict = {}  # {key :node_id, value: node_data}
         self.mc = 0
@@ -69,7 +65,7 @@ class DiGraph():
             list["pos"] = pos
             list["id"] = node_id
             node = Node(list)
-            self.graphDict[node_id] =node
+            self.graphDict[node_id] = node
             return True
         s = str(pos[0])
         for st in pos[1:]:
