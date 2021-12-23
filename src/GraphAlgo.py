@@ -189,8 +189,8 @@ class GraphAlgo:
         # print(MAXLIST.get(362))
         return list
 
-    # def plot_graph(self) -> None:
-    #     startG();
+    def plot_graph(self) -> None:
+        Gui(self.g)
 
 
 
