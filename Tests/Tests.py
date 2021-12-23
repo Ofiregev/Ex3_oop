@@ -7,7 +7,7 @@ import src
 class Test_read_from_file(unittest.TestCase):
     def test_add(self):
         g = DiGraph.DiGraph()
-        c = g.add_node(1,("2","2","2"))
+        c = g.add_node(1 , ("2","2","2"))
         cc = g.add_node(1,("2","2","3"))
         self.assertFalse(cc)
         v = g.graphDict[1]
@@ -112,6 +112,24 @@ class Test_read_from_file(unittest.TestCase):
         l =d.TSP([16,1,4,6,2])
         print(l)
         self.assertTrue(True)
+
+    def test_save(self):
+        d = GraphAlgo.GraphAlgo()
+        d.g.add_node(1,("1,3,5"))
+        d.g.add_node(2,("5,2,9"))
+        d.g.add_node(3,("5,1,9"))
+        d.g.add_node(4,("8,2,9"))
+        d.g.add_edge(1,2,5)
+        d.g.add_edge(1,3,7)
+        d.g.add_edge(1,4,2)
+        d.g.add_edge(2,1,1)
+        d.g.add_edge(4,2,3)
+        d.save_to_json("try")
+        d.save_to_json("try2")
+        self.assertTrue(d.save_to_json("try"))
+        self.assertTrue(d.load_from_json("try"))
+
+
 
 
 

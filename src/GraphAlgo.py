@@ -68,8 +68,11 @@ class GraphAlgo:
             f = open(file_name , 'w')
         except IOError:
             return False
-        with f as outFile:
-            outFile.write(json_object)
+        f.write(json_object)
+        f.close()
+        # with f as outFile:
+        #     outFile.write(json_object)
+        #     outFile.close()
         return True
 
     def TSP(self, node_lst: list[int]) -> (list[int], float):
@@ -200,31 +203,41 @@ def main():
 
     d=GraphAlgo()
     #
-    file ='../data/A5.json'
-    d.load_from_json(file)
-    begin = time.time()
-    # print("sP: ",d.shortest_path(0,10))
-    d.shortest_path(0,10)
-    time.sleep(1)
-    end = time.time()
-    print(f"Total sp runtime of the program is {end - begin}")
-
-    begin = time.time()
-    print(d.centerPoint())
-    # print("The center of", file, " graph is:",d.centerPoint())
-    time.sleep(1)
-    end = time.time()
-    print(f"Total center runtime of the program is {end - begin}")
-    list = []
-    for i in d.D:
-        if i == "maxPath":
-            continue
-        list.append(i)
-    begin = time.time()
-    print(d.TSP(list))
-    time.sleep(1)
-    end = time.time()
-    print(f"Total tsp runtime of the program is {end - begin}")
+    d.g.add_node(1, ("1,3,5"))
+    d.g.add_node(2, ("5,2,9"))
+    d.g.add_node(3, ("5,1,9"))
+    d.g.add_node(4, ("8,2,9"))
+    d.g.add_edge(1, 2, 5)
+    d.g.add_edge(1, 3, 7)
+    d.g.add_edge(1, 4, 2)
+    d.g.add_edge(2, 1, 1)
+    d.g.add_edge(4, 2, 3)
+    d.save_to_json("try")
+    # file ='../data/A5.json'
+    # d.load_from_json(file)
+    # begin = time.time()
+    # # print("sP: ",d.shortest_path(0,10))
+    # d.shortest_path(0,10)
+    # time.sleep(1)
+    # end = time.time()
+    # print(f"Total sp runtime of the program is {end - begin}")
+    #
+    # begin = time.time()
+    # print(d.centerPoint())
+    # # print("The center of", file, " graph is:",d.centerPoint())
+    # time.sleep(1)
+    # end = time.time()
+    # print(f"Total center runtime of the program is {end - begin}")
+    # list = []
+    # for i in d.D:
+    #     if i == "maxPath":
+    #         continue
+    #     list.append(i)
+    # begin = time.time()
+    # print(d.TSP(list))
+    # time.sleep(1)
+    # end = time.time()
+    # print(f"Total tsp runtime of the program is {end - begin}")
 
 
 
