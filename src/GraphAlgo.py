@@ -85,7 +85,7 @@ class GraphAlgo:
         return [lst, min]
 
     def find_way(self, lst: list, start: int):
-        """"help to TSP function' calculate for every start node the best Circle permute """
+        """"help to TSP function' calculate for every start node the best Circle permute! """
         per = []
         per.append(start)
         lst.remove(start)
