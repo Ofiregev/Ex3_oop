@@ -9,13 +9,11 @@ from DiGraph import Node, Edge, DiGraph
 
 class GraphAlgo:
     def __init__(self):
-        self.g = DiGraph()
-        self.D = {}
+        self.g = DiGraph()  ## the graph Type: Digraph
+        self.D = {}  ## dict for calculate dijckstra
         self.nodeQ = []
         self.black = []
         self.parent = {}
-        # self.D[1] ={}
-        # self.D["max"] = -inf
 
     def get_graph(self) -> DiGraph:
         """
@@ -72,8 +70,8 @@ class GraphAlgo:
         #     outFile.write(json_object)
         #     outFile.close()
         return True
-
     def TSP(self, node_lst: list[int]) -> (list[int], float):
+        """Greedy Alogorithem - serch for every premutetaion what is the best start node to build shortest path from it"""
         min = inf
         """this is the Global min for all the permutations"""
         lst = []
@@ -87,6 +85,7 @@ class GraphAlgo:
         return [lst, min]
 
     def find_way(self, lst: list, start: int):
+        """"help to TSP function' calculate for every start node the best Circle permute! """
         per = []
         per.append(start)
         lst.remove(start)
@@ -111,6 +110,10 @@ class GraphAlgo:
         return [per, w]
 
     def Dijkstra(self, src: int):
+
+        """finding the sorted path for every src,
+        The algo save only the path of one src' in self.D, if we run this for other
+        src it will it will change the param on self.D"""
         self.D = {}
         self.nodeQ = []
         self.black = []
@@ -166,6 +169,8 @@ class GraphAlgo:
         return list1
 
     def centerPoint(self) -> (int, float):
+
+        """find the node that have the min wight to move to all the other Nodes"""
         MAXLIST = {}
         minMaxPath = float(inf)
         node_id = -1
@@ -183,75 +188,16 @@ class GraphAlgo:
         return list
 
     def plot_graph(self) -> None:
+        """show the graphic Properties of our DiGraph"""
         f = Gui.gui
-        f.__init__(f , self)
+        f.__init__(f, self)
 
 
 def main():
-
-    # g.plot_graph()
-    # file = '../data/A2.json'
-    # g.load_from_json(file)
-    # g.Dijkstra(1)
-
     d = GraphAlgo()
-    file = '../data/A5.json'
+    file = '../data/G1.json'
     d.load_from_json(file)
     d.plot_graph()
-    # file = '../data/A0.json'
-    # d.load_from_json(file)
-    #
-    # d.g.add_node(1, ("1,3,5"))
-    # d.g.add_node(2, ("5,2,9"))
-    # d.g.add_node(3, ("5,1,9"))
-    # d.g.add_node(4, ("8,2,9"))
-    # d.g.add_edge(1, 2, 5)
-    # d.g.add_edge(1, 3, 7)
-    # d.g.add_edge(1, 4, 2)
-    # d.g.add_edge(2, 1, 1)
-    # d.g.add_edge(4, 2, 3)
-    # d.save_to_json("try")
-    d.plot_graph()
-    # file ='../data/A5.json'
-    # d.load_from_json(file)
-    # begin = time.time()
-    # # print("sP: ",d.shortest_path(0,10))
-    # d.shortest_path(0,10)
-    # time.sleep(1)
-    # end = time.time()
-    # print(f"Total sp runtime of the program is {end - begin}")
-    #
-    # begin = time.time()
-    # print(d.centerPoint())
-    # # print("The center of", file, " graph is:",d.centerPoint())
-    # time.sleep(1)
-    # end = time.time()
-    # print(f"Total center runtime of the program is {end - begin}")
-    # list = []
-    # for i in d.D:
-    #     if i == "maxPath":
-    #         continue
-    #     list.append(i)
-    # begin = time.time()
-    # print(d.TSP(list))
-    # time.sleep(1)
-    # end = time.time()
-    # print(f"Total tsp runtime of the program is {end - begin}")
-
-    # print(g.add_node(2, ("3", "3", "0")))
-    # print(g.add_node(1, ("3", "3", "0")))
-    # print(g.add_node(3, ("3", "3", "0")))
-    #
-    # print(g.add_edge(1, 2, 5.4))
-    # print(g.add_edge(3, 1, 5.4))
-    # print(g.add_edge(1, 3, 5.4))
-
-    # print(g.getEdgeBySrc(1))
-    # print(GraphAlgo.Dijkstra(d,1))
-
-    # print(g.all_in_edges_of_node(1))
-    # print(g.all_out_edges_of_node(2))
-
 
 if __name__ == '__main__':
     main()

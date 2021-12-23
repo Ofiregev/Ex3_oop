@@ -1,32 +1,40 @@
 class DiGraph:
     def __init__(self):
+
+        """"we save all the nodes and the updating in the graph"""
         self.graphDict = {}  # {key :node_id, value: node_data}
         self.mc = 0
 
     def v_size(self) -> int:
+
+        """ return the number of vertex in the graph"""
         return self.Nodes.__len__()
 
     def e_size(self) -> int:
+
+        """ return the number of Edge in the graph"""
         return self.Edges.__len__()
 
     def get_all_v(self) -> dict:
+        """"return all the graph vertical in dictionary <key, Node>"""
         return self.graphDict
 
     def all_in_edges_of_node(self, id1: int) -> dict:
+
+        """":param the id of the node
+        :return all the edge that get into this vertical <key of src, wight>"""
         return self.graphDict.get(id1).inEdge
         """return a dictionary of all the nodes connected to (into) node_id ,
         each node is represented using a pair (other_node_id, weight)
          """
 
     def all_out_edges_of_node(self, id1: int) -> dict:
+        """":param the id of the node
+           :return all the edge that get from the node to other <key of src, wight>"""
         return self.graphDict.get(id1).outEdge
 
-        """return a dictionary of all the nodes connected from node_id , each node is represented using a pair
-        (other_node_id, weight)
-        """
-
     def get_mc(self) -> int:
-
+        """represent the number of changes that does on the graph """
         return self.mc
 
     def add_edge(self, id1: int, id2: int, weight: float) -> bool:
@@ -35,6 +43,7 @@ class DiGraph:
         if self.graphDict.get(id1).outEdge.get(id2) is None and self.graphDict.get(id2).inEdge.get(id1) is None:
             self.graphDict.get(id1).outEdge[id2] = weight
             self.graphDict.get(id2).inEdge[id1] = weight
+            self.mc+=1
             return True
         return False
         """
@@ -51,7 +60,6 @@ class DiGraph:
         self.mc = self.mc + 1
         if self.graphDict.get(node_id) is not None:
             return False
-
         """ checking why we need to insert empty pos"""
         if pos is None:
             list = {}
@@ -90,6 +98,7 @@ class DiGraph:
 
     #
     def remove_edge(self, node_id1: int, node_id2: int) -> bool:
+        self.mc+=1
         if self.graphDict.get(node_id1).outEdge.get(node_id2) is None or self.graphDict.get(node_id2).inEdge.get(
                 node_id1) is None:
             return False
@@ -113,7 +122,11 @@ class DiGraph:
         return list
 
     def getWeightOfEdge(self,src :int, dest: int )->float:
+        """get: the src and dst of edge
+        return: the wight"""
         return self.graphDict.get(src).outEdge[dest]
+
+    """""convert string of geoLocation to float parameters"""
 
     def posGetX(self,pos:str):
         s = pos.split(',')
@@ -126,7 +139,7 @@ class DiGraph:
 class Node:
     def __init__(self, list):
         self.id = list["id"]
-        self.pos = list["pos"]
+        self.pos = list["pos"]  ###Location
         self.inEdge = {}  # this is dic of edge into our node <"other node.id",w>
         self.outEdge = {}  # this is dic of edge from our node <"other node.id",w>
 
@@ -154,25 +167,3 @@ class Edge:
 
     def __str__(self):
         return f"src: {self.src} dst: {self.dest} wight: {self.w}"
-
-
-def main():
-    g = DiGraph()
-    # file ='../data/A5.json'
-    # g.load_from_json(file)
-    g.add_node(2, ("3.536", "3", "0"))
-    # print(g.add_node(1, ("3", "3", "0")))
-    # print(g.add_node(3, ("3", "3", "0")))
-    #
-    # print(g.add_edge(1, 2, 5.4))
-    # print(g.add_edge(3, 1, 5.4))
-    # print(g.add_edge(1, 3, 5.4))
-    # print(g.getEdgeBySrc(1))
-    #
-    #
-    # print(g.all_in_edges_of_node(1))
-    # print(g.all_out_edges_of_node(2))
-
-
-if __name__ == '__main__':
-    main()

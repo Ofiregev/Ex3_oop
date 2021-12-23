@@ -1,3 +1,4 @@
+import random
 from math import inf, sqrt
 
 import pygame
@@ -17,10 +18,8 @@ class gui:
         video_infos = pygame.display.Info()
         WIDTH, HIGHT = video_infos.current_w, video_infos.current_h - 50
         self.screen = pygame.display.set_mode((WIDTH, HIGHT), depth=32, flags=RESIZABLE)
-        width = self.screen.get_width()
-        height = self.screen.get_height()
         FONT = pygame.font.SysFont('Arial', 18, bold=True)
-
+        """finding the scale(Min,Max) of the graph"""
         min_x = inf
         min_y = inf
         max_x = -inf
@@ -28,14 +27,25 @@ class gui:
 
         for n in self.g.g.graphDict.values():
             pos = n.pos.split(",")
-            if min_x > float(pos[0]):
-                min_x = float(pos[0])
-            if max_x < float(pos[0]):
-                max_x = float(pos[0])
-            if min_y > float(pos[1]):
-                min_y = float(pos[1])
-            if max_y < float(pos[1]):
-                max_y = float(pos[1])
+            """if there is not pos to this id we will cast lots some location between Min<x/y> to Max<x,y> """
+            if pos[0]=='':
+                pos =[]
+                pos.append(random.uniform(min_x,max_x))
+                pos.append(random.uniform(min_y,max_y))
+                st =''
+                st +=str(pos[0])+","+str(pos[1])+",0.0"
+                n.pos = st
+                print(n.pos)
+                continue
+            else:
+                if min_x > float(pos[0]):
+                    min_x = float(pos[0])
+                if max_x < float(pos[0]):
+                    max_x = float(pos[0])
+                if min_y > float(pos[1]):
+                    min_y = float(pos[1])
+                if max_y < float(pos[1]):
+                    max_y = float(pos[1])
 
         while True:
             for e in pygame.event.get():
@@ -44,14 +54,15 @@ class gui:
                     exit(0)
             self.screen.fill(pygame.Color(10, 140, 200))
             for n in self.g.g.graphDict.values():
-                pos = n.pos.split(",")
-                x = scale(float(pos[0]), 30, self.screen.get_width() - 30, min_x, max_x)
-                y = scale(float(pos[1]), 20, self.screen.get_height() - 20, min_y, max_y)
-                for e in self.g.g.all_out_edges_of_node(n.id):
-                    other_pos = self.g.g.graphDict.get(e).pos.split(',')
-                    o_x = scale(float(other_pos[0]), 30, self.screen.get_width() - 30, min_x, max_x)
-                    o_y = scale(float(other_pos[1]), 20, self.screen.get_height() - 20, min_y, max_y)
-                    self.arrow(self,[x, y], [o_x, o_y], 25, 10)
+                    pos = n.pos.split(",")
+                    x = scale(float(pos[0]), 30, self.screen.get_width() - 30, min_x, max_x)
+                    y = scale(float(pos[1]), 20, self.screen.get_height() - 20, min_y, max_y)
+                    for e in self.g.g.all_out_edges_of_node(n.id):
+                        other_pos = self.g.g.graphDict.get(e).pos.split(',')
+                        o_x = scale(float(other_pos[0]), 30, self.screen.get_width() - 30, min_x, max_x)
+                        o_y = scale(float(other_pos[1]), 20, self.screen.get_height() - 20, min_y, max_y)
+                        self.arrow(self,[x, y], [o_x, o_y], 25, 10)
+            """draw the arrow of the function and the nodes"""
             for n in self.g.g.graphDict.values():
                 pos = n.pos.split(",")
                 x = scale(float(pos[0]), 30, self.screen.get_width() - 30, min_x, max_x)
@@ -60,7 +71,7 @@ class gui:
                 id_srf = FONT.render(str(n.id), True, pygame.Color(255, 11, 249))
                 rect = id_srf.get_rect(center=(x, y - 5))
                 self.screen.blit(id_srf, rect)
-
+            clock.tick(60)
             pygame.display.update()
 
     def arrow(self, start, end, d, h):
@@ -91,5 +102,3 @@ def scale(data, min_screen, max_screen, min_data, max_data):
     """
     return ((data - min_data) / (max_data - min_data)) * (max_screen - min_screen) + min_screen
 
-# g = GraphAlgo.GraphAlgo()
-# g.load_from_json('../data/G3.json')
