@@ -1,16 +1,12 @@
 import random
 from math import inf, sqrt
-
 import pygame
-import json
-
 from pygame.constants import RESIZABLE
-from GraphAlgo import GraphAlgo
 
 
 class gui:
 
-    def __init__(self, ag: GraphAlgo):
+    def __init__(self, ag):
         self.g = ag
         clock = pygame.time.Clock()
         pygame.init()

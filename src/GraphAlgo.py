@@ -195,10 +195,11 @@ class GraphAlgo:
 
 def main():
     d = GraphAlgo()
-    file = '../data/1000Nodes.json'
+    file = '../data/A0.json'
     d.load_from_json(file)
     start = timeit.default_timer()
     d.centerPoint()
+    d.plot_graph()
     stop = timeit.default_timer()
     print('Time: ', stop - start)
 
