@@ -5,7 +5,6 @@ import pygame
 import json
 
 from pygame.constants import RESIZABLE
-
 from GraphAlgo import GraphAlgo
 
 
@@ -29,6 +28,11 @@ class gui:
             pos = n.pos.split(",")
             """if there is not pos to this id we will cast lots some location between Min<x/y> to Max<x,y> """
             if pos[0]=='':
+                if min_x == inf:
+                    min_x = 0
+                    min_y = 0
+                    max_x = 100
+                    max_y = 100
                 pos =[]
                 pos.append(random.uniform(min_x,max_x))
                 pos.append(random.uniform(min_y,max_y))

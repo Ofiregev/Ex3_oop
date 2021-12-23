@@ -2,9 +2,9 @@ import copy
 import json
 import time
 from math import inf
-
 import Gui
 from DiGraph import Node, Edge, DiGraph
+import timeit
 
 
 class GraphAlgo:
@@ -195,9 +195,12 @@ class GraphAlgo:
 
 def main():
     d = GraphAlgo()
-    file = '../data/G1.json'
+    file = '../data/1000Nodes.json'
     d.load_from_json(file)
-    d.plot_graph()
+    start = timeit.default_timer()
+    d.centerPoint()
+    stop = timeit.default_timer()
+    print('Time: ', stop - start)
 
 if __name__ == '__main__':
     main()

@@ -139,7 +139,10 @@ class DiGraph:
 class Node:
     def __init__(self, list):
         self.id = list["id"]
-        self.pos = list["pos"]  ###Location
+        try:
+            self.pos = list["pos"]  ###Location
+        except:
+            self.pos = ''
         self.inEdge = {}  # this is dic of edge into our node <"other node.id",w>
         self.outEdge = {}  # this is dic of edge from our node <"other node.id",w>
 
