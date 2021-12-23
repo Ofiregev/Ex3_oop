@@ -37,11 +37,15 @@ def arrow(start, end, d, h):
 
 
 g = GraphAlgo.GraphAlgo()
-g.load_from_json('../data/A3.json')
+g.load_from_json('../data/G3.json')
 clock = pygame.time.Clock()
 pygame.init()
-WIDTH, HIGHT =800,620
-screen = pygame.display.set_mode((WIDTH,HIGHT),depth=32, flags= RESIZABLE)
+##screen = pygame.display.set_mode((0,0),pygame.FULLSCREEN)
+video_infos = pygame.display.Info()
+screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+WIDTH, HIGHT = video_infos.current_w, video_infos.current_h
+##WIDTH, HIGHT =screen.get_width(),screen.get_height()
+##screen = pygame.display.set_mode((WIDTH,HIGHT),depth=32, flags= RESIZABLE)
 width = screen.get_width()
 height = screen.get_height()
 FONT = pygame.font.SysFont('Arial', 18, bold=True)
