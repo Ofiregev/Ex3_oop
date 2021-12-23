@@ -19,7 +19,7 @@ class gui:
         WIDTH, HIGHT = video_infos.current_w, video_infos.current_h - 50
         self.screen = pygame.display.set_mode((WIDTH, HIGHT), depth=32, flags=RESIZABLE)
         FONT = pygame.font.SysFont('Arial', 18, bold=True)
-
+        """finding the scale(Min,Max) of the graph"""
         min_x = inf
         min_y = inf
         max_x = -inf
@@ -27,11 +27,11 @@ class gui:
 
         for n in self.g.g.graphDict.values():
             pos = n.pos.split(",")
+            """if there is not pos to this id we will cast lots some location between Min<x/y> to Max<x,y> """
             if pos[0]=='':
                 pos =[]
                 pos.append(random.uniform(min_x,max_x))
                 pos.append(random.uniform(min_y,max_y))
-                print(pos)
                 st =''
                 st +=str(pos[0])+","+str(pos[1])+",0.0"
                 n.pos = st
@@ -62,6 +62,7 @@ class gui:
                         o_x = scale(float(other_pos[0]), 30, self.screen.get_width() - 30, min_x, max_x)
                         o_y = scale(float(other_pos[1]), 20, self.screen.get_height() - 20, min_y, max_y)
                         self.arrow(self,[x, y], [o_x, o_y], 25, 10)
+            """draw the arrow of the function and the nodes"""
             for n in self.g.g.graphDict.values():
                 pos = n.pos.split(",")
                 x = scale(float(pos[0]), 30, self.screen.get_width() - 30, min_x, max_x)
@@ -101,5 +102,3 @@ def scale(data, min_screen, max_screen, min_data, max_data):
     """
     return ((data - min_data) / (max_data - min_data)) * (max_screen - min_screen) + min_screen
 
-# g = GraphAlgo.GraphAlgo()
-# g.load_from_json('../data/G3.json')
