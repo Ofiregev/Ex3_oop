@@ -50,17 +50,13 @@ class Tests(unittest.TestCase):
         self.assertEqual(g.all_out_edges_of_node(3), {1: 27, 2: 27})
 
     def test_loadFrom_json(self):
-        g = GraphAlgo.GraphAlgo()
+        g = DiGraph.DiGraph()
+        d =GraphAlgo.GraphAlgo(g)
         file = '../data/A5.json'
-        b = g.load_from_json(file)
+        b = d.load_from_json(file)
         self.assertTrue(b)
 
-    def test_iterationExsemple(self):
-        g = GraphAlgo.GraphAlgo()
-        file = '../data/A0.json'
-        b = g.load_from_json(file)
-        b = g.save_to_json("Try")
-        self.assertTrue(True, "this is an iterator Example")
+
 
     def test_getEdgeBySrc(self):
         g = DiGraph.DiGraph()
@@ -89,8 +85,8 @@ class Tests(unittest.TestCase):
         self.assertEqual(23, g.getWeightOfEdge(2, 1))
 
     def test_shortest_path(self):
-        d = GraphAlgo.GraphAlgo()
-        g = d.g
+        g = DiGraph.DiGraph()
+        d = GraphAlgo.GraphAlgo(g)
         g.add_node(0, ("1", "2", "2"))
         g.add_node(1, ("1", "2", "2"))
         g.add_node(2, ("1", "2", "2"))
@@ -103,7 +99,8 @@ class Tests(unittest.TestCase):
         self.assertEqual([float('inf'), []], d.shortest_path(1, 4))
 
     def test_Tsp(self):
-        d = GraphAlgo.GraphAlgo()
+        g = DiGraph.DiGraph()
+        d = GraphAlgo.GraphAlgo(g)
         file = '../data/A1.json'
         d.load_from_json(file)
         l = d.TSP([1,2,3])
@@ -111,7 +108,8 @@ class Tests(unittest.TestCase):
         self.assertTrue([[1, 2, 3, 1], 5.883816795156906],l)
 
     def test_save(self):
-        d = GraphAlgo.GraphAlgo()
+        g = DiGraph.DiGraph()
+        d = GraphAlgo.GraphAlgo(g)
         d.g.add_node(1, ("1,3,5"))
         d.g.add_node(2, ("5,2,9"))
         d.g.add_node(3, ("5,1,9"))

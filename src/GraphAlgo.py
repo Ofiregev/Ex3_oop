@@ -8,8 +8,8 @@ import timeit
 
 
 class GraphAlgo:
-    def __init__(self):
-        self.g = DiGraph()  ## the graph Type: Digraph
+    def __init__(self,g:DiGraph):
+        self.g = g  ## the graph Type: Digraph
         self.D = {}  ## dict for calculate dijckstra
         self.nodeQ = []
         self.black = []
