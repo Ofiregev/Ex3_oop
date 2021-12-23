@@ -2,22 +2,20 @@ import copy
 import json
 import time
 from math import inf
-import queue
-from tkinter import Tk
 
+import Gui
 from DiGraph import Node, Edge, DiGraph
 
 
 class GraphAlgo:
     def __init__(self):
         self.g = DiGraph()
-        self.D ={}
+        self.D = {}
         self.nodeQ = []
         self.black = []
         self.parent = {}
         # self.D[1] ={}
         # self.D["max"] = -inf
-
 
     def get_graph(self) -> DiGraph:
         """
@@ -46,26 +44,26 @@ class GraphAlgo:
         for e in edge:
             Edges.append(Edge(e))
         for i in Nodes:
-            self.g.add_node(i.id,i.pos)
+            self.g.add_node(i.id, i.pos)
         for i in Edges:
-            self.g.add_edge(i.src,i.dest,i.w)
+            self.g.add_edge(i.src, i.dest, i.w)
 
         return True
 
     def save_to_json(self, file_name: str) -> bool:
-        nd =[]
-        ed =[]
+        nd = []
+        ed = []
         for key in self.g.graphDict.keys():
-            nd.append({"id": key ,
-                       "pos":self.g.graphDict[key].pos})
+            nd.append({"id": key,
+                       "pos": self.g.graphDict[key].pos})
             for e in self.g.graphDict[key].outEdge:
-                ed.append({"src":key ,"w":self.g.graphDict[key].outEdge[e] , "dest": e})
+                ed.append({"src": key, "w": self.g.graphDict[key].outEdge[e], "dest": e})
         dic = {}
         dic["Nodes"] = nd
         dic["Edges"] = ed
         json_object = json.dumps(dic)
         try:
-            f = open(file_name , 'w')
+            f = open(file_name, 'w')
         except IOError:
             return False
         f.write(json_object)
@@ -76,20 +74,20 @@ class GraphAlgo:
         return True
 
     def TSP(self, node_lst: list[int]) -> (list[int], float):
-        min =inf
+        min = inf
         """this is the Global min for all the permutations"""
-        lst =[]
+        lst = []
         """this lst will represent the most better permutation of the list"""
         for i in node_lst:
             """checking when every node is the beginning of the circle what is the most good permutation"""
             temp = self.find_way(copy.deepcopy(node_lst), i)
             if temp[1] < min:
                 min = temp[1]
-                lst =temp [0]
+                lst = temp[0]
         return [lst, min]
 
-    def find_way(self, lst:list ,start:int):
-        per =[]
+    def find_way(self, lst: list, start: int):
+        per = []
         per.append(start)
         lst.remove(start)
         index = 0
@@ -110,11 +108,9 @@ class GraphAlgo:
         self.Dijkstra(nex)
         w += self.D.get(start)
 
-        return [per,w]
+        return [per, w]
 
-
-
-    def Dijkstra(self,src :int):
+    def Dijkstra(self, src: int):
         self.D = {}
         self.nodeQ = []
         self.black = []
@@ -122,39 +118,36 @@ class GraphAlgo:
         self.D["maxPath"] = float(-inf)
         for i in self.g.graphDict:
             if i == src:
-                self.nodeQ.append({"id":src,"w":0})
+                self.nodeQ.append({"id": src, "w": 0})
                 self.D[src] = 0
-                self.parent[src] =-1
+                self.parent[src] = -1
             else:
-                self.D[i] = inf ##save in a dictinury the nodes w ,this is good bebause its by key
+                self.D[i] = inf  ##save in a dictinury the nodes w ,this is good bebause its by key
         while len(self.black) != len(self.g.graphDict):
             if self.nodeQ.__len__() == 0:
                 return
             self.nodeQ = sorted(self.nodeQ, key=lambda i: i['w'])
             v = self.nodeQ.pop(0)['id']
-            if(self.black.__contains__(v)):
+            if (self.black.__contains__(v)):
                 continue
             self.black.append(v)
             nei = self.g.getEdgeBySrc(v)
             for i in nei:
-                 self.relax(v, i)
+                self.relax(v, i)
         for i in self.g.graphDict:
             if self.D[i] > self.D["maxPath"]:
                 self.D["maxPath"] = self.D[i]
 
-
-
-    def relax(self,v,t):
+    def relax(self, v, t):
         curr_w = self.D[v] + self.g.getWeightOfEdge(v, t)
         if self.D[t] > float(curr_w):
             self.D[t] = float(curr_w)
             self.parent[t] = v
             self.nodeQ.append({"id": t, "w": curr_w})
 
-
     def shortest_path(self, id1: int, id2: int) -> (float, list):
         if self.g.graphDict.get(id2) is None or self.g.graphDict.get(id1) is None:
-            list =[]
+            list = []
             list.append(float('inf'))
             list.append([])
             return list
@@ -164,7 +157,7 @@ class GraphAlgo:
         list1.append(self.D[id2])
         list2.append(id1)
         i = id2
-        while (i != -1 and self.parent.get(i)!=-1):
+        while (i != -1 and self.parent.get(i) != -1):
             t = self.parent.get(i)
             list2.append(t)
             i = self.parent[t]
@@ -190,18 +183,20 @@ class GraphAlgo:
         return list
 
     def plot_graph(self) -> None:
-        Gui(self.g)
-
+        f = Gui.gui
+        f.__init__(f , self)
 
 
 def main():
-    g = GraphAlgo()
+
     # g.plot_graph()
     # file = '../data/A0.json'
     # g.load_from_json(file)
     # g.Dijkstra(1)
 
-    d=GraphAlgo()
+    d = GraphAlgo()
+    # file = '../data/A0.json'
+    # d.load_from_json(file)
     #
     d.g.add_node(1, ("1,3,5"))
     d.g.add_node(2, ("5,2,9"))
@@ -212,7 +207,8 @@ def main():
     d.g.add_edge(1, 4, 2)
     d.g.add_edge(2, 1, 1)
     d.g.add_edge(4, 2, 3)
-    d.save_to_json("try")
+    # d.save_to_json("try")
+    d.plot_graph()
     # file ='../data/A5.json'
     # d.load_from_json(file)
     # begin = time.time()
@@ -239,17 +235,6 @@ def main():
     # end = time.time()
     # print(f"Total tsp runtime of the program is {end - begin}")
 
-
-
-
-
-
-
-
-
-
-
-
     # print(g.add_node(2, ("3", "3", "0")))
     # print(g.add_node(1, ("3", "3", "0")))
     # print(g.add_node(3, ("3", "3", "0")))
@@ -260,7 +245,6 @@ def main():
 
     # print(g.getEdgeBySrc(1))
     # print(GraphAlgo.Dijkstra(d,1))
-
 
     # print(g.all_in_edges_of_node(1))
     # print(g.all_out_edges_of_node(2))
