@@ -14,6 +14,7 @@ class GraphAlgo:
         self.nodeQ = []
         self.black = []
         self.parent = {}
+        self.isCo ={}
 
     def get_graph(self) -> DiGraph:
         """
@@ -70,6 +71,7 @@ class GraphAlgo:
         #     outFile.write(json_object)
         #     outFile.close()
         return True
+
     def TSP(self, node_lst: list[int]) -> (list[int], float):
         """Greedy Alogorithem - serch for every premutetaion what is the best start node to build shortest path from it"""
         min = inf
@@ -169,29 +171,31 @@ class GraphAlgo:
         return list1
 
     def centerPoint(self) -> (int, float):
-
-        """find the node that have the min wight to move to all the other Nodes"""
-        MAXLIST = {}
-        minMaxPath = float(inf)
-        node_id = -1
-        for i in self.g.graphDict.keys():
-            self.Dijkstra(i)
-            MAXLIST[i] = self.D.get("maxPath")
-            if self.D.get("maxPath") < minMaxPath:
-                minMaxPath = self.D.get("maxPath")
-                node_id = i
-        list = []
-        list.append(node_id)
-        list.append(minMaxPath)
-        # print(MAXLIST)
-        # print(MAXLIST.get(362))
-        return list
+        try:
+            """find the node that have the min wight to move to all the other Nodes"""
+            MAXLIST = {}
+            minMaxPath = float(inf)
+            node_id = -1
+            for i in self.g.graphDict.keys():
+                self.Dijkstra(i)
+                MAXLIST[i] = self.D.get("maxPath")
+                if self.D.get("maxPath") < minMaxPath:
+                    minMaxPath = self.D.get("maxPath")
+                    node_id = i
+            list = []
+            list.append(node_id)
+            list.append(minMaxPath)
+            # print(MAXLIST)
+            # print(MAXLIST.get(362))
+            return list
+        except:
+            list = [None, float(inf)]
+            return list
 
     def plot_graph(self) -> None:
         """show the graphic Properties of our DiGraph"""
         f = Gui.gui
         f.__init__(f, self)
-
 
 def main():
     d = GraphAlgo()
