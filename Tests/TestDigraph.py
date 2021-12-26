@@ -124,17 +124,6 @@ class Tests(unittest.TestCase):
         self.assertTrue(d.save_to_json("try"))
         self.assertTrue(d.load_from_json("try"))
 
-    def test_center(self):
-        g = DiGraph.DiGraph()
-        d = GraphAlgo.GraphAlgo(g)
-        d.g.add_node(1, ("1,3,5"))
-        d.g.add_node(2, ("5,2,9"))
-        d.g.add_node(3, ("5,1,9"))
-        d.g.add_node(4, ("8,2,9"))
-        d.g.add_edge(1, 2, 5)
-        d.g.add_edge(2, 1, 1)
-        d.g.add_edge(4, 2, 3)
-        self.assertEqual(d.centerPoint(),[8,54])
 
 
 
